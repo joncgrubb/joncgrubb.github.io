@@ -66,17 +66,17 @@ And one more, a Procfile for Heroku, note there is no file extension, and capita
 Open your text editor of choice and lets populate these files with what they need.
 Inside index.js, copy the following and save:
 </p>
-<code>
-var express = require('express');<br>
-var app = express();<br>
-var port = process.env.PORT || 3000;<br>
-<br>
-app.use(express.static(__dirname + '/app/'));<br>
-<br>
-app.listen(port, function() {<br>
-console.log('I am listening on port 3000!');<br>
+<pre><code>
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 3000;
+
+app.use(express.static(__dirname + '/app/'));
+
+app.listen(port, function() {
+console.log('I am listening on port 3000!');
 });
-</code>
+</code></pre>
 <p>
 	
 <br>
@@ -92,10 +92,10 @@ An important note about line 5 of our index.js, the app.use line. The portion co
 	
 Now we'll add some bits into the .gitignore file. This will prevent the files we are about to install from being pushed to Github and Heroku in the near future:
 </p>
-<code>
-.DS_Store<br>
+<pre><code>
+.DS_Store
 node_modules
-</code>
+</code></pre>
 <p>
 
 <br>	
