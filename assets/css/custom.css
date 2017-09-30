@@ -21,8 +21,9 @@ code {
     height: 125px;
     display: block;
     margin: auto;
+    margin-top: 10px;
     box-shadow: 5px 5px 5px #aaaaaa;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .portfolio-title {
