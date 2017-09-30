@@ -17,10 +17,12 @@ code {
     color: white;
 }
 
-.img-rounded {
+#profile-pic {
     height: 125px;
     display: block;
     margin: auto;
+    box-shadow: 5px 5px 5px #aaaaaa;
+    border-radius: 15px;
 }
 
 .portfolio-title {
