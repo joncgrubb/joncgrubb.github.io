@@ -22,7 +22,6 @@ focus on the free stuff, who doesn't love free?!
 First, you'll need to travel on over to the Heroku website and set up your
 account.
 </p>
-<br>
 <a href="https://www.heroku.com">Heroku</a>
 <br>
 <p>
@@ -42,38 +41,43 @@ Open terminal and navigate to your repo directory, for the sake of this article
 my repo is named "my-example-app". Set your remote with the copied url:
 </p>
 <code>git remote https://github.com/username/my-example-app</code>
+<br>
 <p>
 	
 Create an index.js file so Heroku will know what to do:
 </p>
 <code>touch index.js</code>
+<br>
 <p>
 	
 Let's create a .gitignore file too, there are some items we will be creating
 that we don't need to push to Github or Heroku:
 </p>
 <code>touch .gitignore</code>
+<br>
 <p>
 	
 And one more, a Procfile for Heroku, note there is no file extension, and capitalization is important:
 </p>
 <code>touch Procfile</code>
+<br>
 <p>
 	
 Open your text editor of choice and lets populate these files with what they need.
 Inside index.js, copy the following and save:
 </p>
 <code>
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 3000;
-
-app.use(express.static(__dirname + '/app/'));
-
-app.listen(port, function() {
-console.log('I am listening on port 3000!');
-});
+var express = require('express');<br>
+var app = express();<br>
+var port = process.env.PORT || 3000;<br>
+<br>
+app.use(express.static(__dirname + '/app/'));<br>
+<br>
+app.listen(port, function() {<br>
+console.log('I am listening on port 3000!');<br>
+});<br>
 </code>
+<br>
 <p>
 	
 Basically this tells Heroku we'll be using an Express framework for node.js to
@@ -89,14 +93,16 @@ An important note about line 5 of our index.js, the app.use line. The portion co
 Now we'll add some bits into the .gitignore file. This will prevent the files we are about to install from being pushed to Github and Heroku in the near future:
 </p>
 <code>
-.DS_Store
+.DS_Store<br>
 node_modules
 </code>
+<br>
 <p>
 	
 Now lets add a single line to the Procfile, this is basically a script that tells node to execute our index.js file:
 </p>
 <code>web: node index.js</code>
+<br>
 <p>
 	
 Once again an important note. This single line expects index.js to be located in the root directory of your project, in my case <bold>my-example-app</bold>. If you move the index.js file to a subdirectory this line will need to be edited to reflect that change. For example if you moved it to your <bold>app</bold> directory, this line would need to read </bold>web: node app/index.js</bold>
@@ -110,12 +116,14 @@ NPM time! If you dont have npm installed there are plenty of helpful articles on
 Now lets install some stuff! In terminal, once again in the root directory of your app repo, type the following:
 </p>
 <code>npm init</code>
+<br>
 <p>
 	
 Once started you will be asked to reply to some questions, you may skip them by hitting enter or answer them so your package.json that NPM creates has relevant information in it.
 Now that NPM is initialized, lets install express. Type the following in terminal:
 </p>
 <code>npm install express --save</code>
+<br>
 <p>
 	
 Time to once again hit the Heroku website. Under Personal Apps tab, click the <bold>New</bold> button. You'll be required to specify a name and choose a region. Names for Heroku apps are first come - first serve, so if prompted that the name is taken simply pick something else! This name will soon be part of the url used to access our deployed application!
@@ -131,11 +139,13 @@ We're so close now! Just run your normal git commands to add, commit and push yo
 <code>git add .</code>
 <code>git commit -m "your commit message goes here"</code>
 <code>git push origin master</code>
+<br>
 <p>
 	
 Now for the Heroku portion. Pushing to Heroku works almost exactly like pushing to Github, and is therefor extremely easy!
 </p>
 <code>git push heroku master</code>
+<br>
 <p>
 	
 That's it! You can watch as your application gets built and deployed in the terminal, and sans any build errors you are now on your way to a web app! If there are build errors, be sure to check the Logs section of your application on the Heroku site and note any build errors that may be present in Terminal for googling solutions.
