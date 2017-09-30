@@ -12,6 +12,11 @@
     font-style: normal;
 }
 
+code {
+    background-color: #323232;
+    color: white;
+}
+
 .img-rounded {
     height: 125px;
     display: block;
