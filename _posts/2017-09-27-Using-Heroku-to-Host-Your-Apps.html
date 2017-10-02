@@ -40,7 +40,7 @@ the web url listed below it.
 Open terminal and navigate to your repo directory, for the sake of this article
 my repo is named "my-example-app". Set your remote with the copied url:
 </p>
-<code>git remote https://github.com/username/my-example-app</code>
+<code>git remote add origin https://github.com/username/my-example-app</code>
 <p>
 
 <br>	
@@ -82,11 +82,11 @@ console.log('I am listening on port 3000!');
 <br>
 Basically this tells Heroku we'll be using an Express framework for node.js to
 run our application. The port option is so you can open a local copy of the app
-in your browser if you so choose, good for working on styling options, etc. Although you'd probably be better off installing <bold>live-server</bold> golbally with <bold>npm</bold> as it will do live reloads of the page as you edit and save files.
+in your browser if you so choose, good for working on styling options, etc. Although you'd probably be better off installing <b>live-server</b> golbally with <b>npm</b> as it will do live reloads of the page as you edit and save files.
 </p>
 <p>
 	
-An important note about line 5 of our index.js, the app.use line. The portion containing /app/ will be the directory that your application's index.html lives. This needs to be edited accordingly. For example, if your index.hmtl is in the root directory of your repo a single / would suffice. If it's located in a directory named <bold>dist</bold> then /app/ would need to be changed to /dist/
+An important note about line 5 of our index.js, the app.use line. The portion containing /app/ will be the directory that your application's index.html lives. This needs to be edited accordingly. For example, if your index.hmtl is in the root directory of your repo a single / would suffice. If it's located in a directory named <b>dist</b> then /app/ would need to be changed to /dist/
 </p>
 <p>
 	
@@ -99,13 +99,13 @@ node_modules
 <p>
 
 <br>	
-Now lets add a single line to the Procfile, this is basically a script that tells node to execute our index.js file:
+Now lets add a single line to the Procfile, this is basically a script that tells Heroku to execute our index.js file:
 </p>
 <pre><code>web: node index.js</code></pre>
 <p>
 
 <br>	
-Once again an important note. This single line expects index.js to be located in the root directory of your project, in my case <bold>my-example-app</bold>. If you move the index.js file to a subdirectory this line will need to be edited to reflect that change. For example if you moved it to your <bold>app</bold> directory, this line would need to read </bold>web: node app/index.js</bold>
+Once again an important note. This single line expects index.js to be located in the root directory of your project, in my case <b>my-example-app</b>. If you move the index.js file to a subdirectory this line will need to be edited to reflect that change. For example if you moved it to your <b>app</b> directory, this line would need to read <b>web: node app/index.js</b>
 </p>
 <p>
 	
@@ -126,11 +126,11 @@ Now that NPM is initialized, lets install express. Type the following in termina
 <p>
 
 <br>	
-Time to once again hit the Heroku website. Under Personal Apps tab, click the <bold>New</bold> button. You'll be required to specify a name and choose a region. Names for Heroku apps are first come - first serve, so if prompted that the name is taken simply pick something else! This name will soon be part of the url used to access our deployed application!
+Time to once again hit the Heroku website. Under Personal Apps tab, click the <b>New</b> button. You'll be required to specify a name and choose a region. Names for Heroku apps are first come - first serve, so if prompted that the name is taken simply pick something else! This name will soon be part of the url used to access our deployed application!
 </p>
 <p>
 	
-After creating the app, if not already, navigate to your newly created app in Personal Apps tab. Open the <bold>Deploy</bold> tab and scroll to the bottom and copy the line below "Existing Git Repo". Note that there is a $ in this line, don't copy that or it wont work, that's just letting you know to copy/paste this line into terminal.
+After creating the app, if not already, navigate to your newly created app in Personal Apps tab. Open the <b>Deploy</b> tab and scroll to the bottom and copy the line below "Existing Git Repo", paste into terminal, and execute. Note that there is a $ in this line, don't copy that or it wont work, that's just letting you know to copy/paste this line into terminal.
 </p>
 <p>
 	

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/assets/css/normalize.css"/>
+  <link rel="stylesheet" href="/assets/css/bulma.css"/>
+  <link rel="stylesheet" href="/assets/css/custom.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <title>
+    
+      Using Heroku to Host Your Apps &middot; Jonathan Grubb
+    
+  </title>
+
+</head>
+
+
+<body>
+
+<section class="hero is-dark">
+  <div class="hero-body">
+    <div class="container">
+        <h1 class="title">
+          <span class="typewrite" data-period="2000" data-type='[ "Jonathan Grubb", "code", "web development", "import automotive"]'>
+            <span class="wrap"></span>
+          </span>
+        </h1>
+      <h4 class="subtitle" id="quote">
+      </h4>
+    </div>
+  </div>
+</section>
+
+<div class="main-container">
+  <div class="tile is-ancestor is-vertical">
+
+
+    <nav class="nav has-shadow">
+
+      <div class="nav-left">
+
+        <a href="/" class="nav-item">
+          <span class="icon">
+            <i class="fa fa-home" aria-hidden="true" title="Homepage"></i>
+          </span>
+        </a>
+
+        <a href="https://github.com/joncgrubb" class="nav-item">
+          <span class="icon">
+            <i class="fa fa-github" aria-hidden="true" title="Github"></i>
+          </span>
+        </a>
+
+        <div class="nav-item" id="searchFieldNav">
+          <div class="field has-addons">
+            <p class="control">
+              <input class="input is-small" type="text" placeholder="Find an article" id="search-text">
+            </p>
+            <p class="control">
+              <a class="button is-dark is-small" onclick="searchHandler();">
+                Search
+              </a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="nav-right nav-menu" id='nav-menu'>
+        <a href="/portfolio" class="nav-item">Portfolio</a>
+        <a href="/archive" class="nav-item">Archive</a>
+      </div>
+
+      <span class="nav-toggle" id="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+    </nav>
+
+    <div class="tile is-parent">
+      <div class="tile is-8 is-child main">
+
+        <div class="box">
+    <h1 class="post-title">Using Heroku to Host Your Apps</h1>
+    <span class="post-meta">27 September, 2017. It was a Wednesday. <a style="color:grey" href="#disqus_thread"></a></span><hr/>
+
+    <span class="post-text"><p>
+This article will assume you have the basics of building some type
+of application or web page that you'd like to be available to the whole
+of the internet. You just need a place to store it. Maybe it's a small
+project like my calculator or tic-tac-toe built with Javascript, or maybe
+something a bit more. It really doesn't matter, as what we'll cover here
+is getting what you need to deploy your app to Heroku.
+</p>
+<p>
+
+Heroku is a free service that will allow you to store up to 5 apps, with 
+more support and app slots available for a small fee. For now we will
+focus on the free stuff, who doesn't love free?!
+</p>
+<p>
+
+First, you'll need to travel on over to the Heroku website and set up your
+account.
+</p>
+<a href="https://www.heroku.com">Heroku</a>
+<p>
+
+<br>	
+Next you will need to have a local git repo with at bare minimum an index.html
+file stored within it for Heroku to serve your app to the wilds of the internet.
+</p>
+<p>
+	
+If you don't already have this repo stored on Github, now is the time to do so.
+Create a new repo on Github, click the green Clone or Download button and copy
+the web url listed below it.
+</p>
+<p>
+	
+Open terminal and navigate to your repo directory, for the sake of this article
+my repo is named "my-example-app". Set your remote with the copied url:
+</p>
+<code>git remote https://github.com/username/my-example-app</code>
+<p>
+
+<br>	
+Create an index.js file so Heroku will know what to do:
+</p>
+<code>touch index.js</code>
+<p>
+
+<br>
+Let's create a .gitignore file too, there are some items we will be creating
+that we don't need to push to Github or Heroku:
+</p>
+<code>touch .gitignore</code>
+<p>
+
+<br>	
+And one more, a Procfile for Heroku, note there is no file extension, and capitalization is important:
+</p>
+<code>touch Procfile</code>
+<p>
+
+<br>	
+Open your text editor of choice and lets populate these files with what they need.
+Inside index.js, copy the following and save:
+</p>
+<pre><code>
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 3000;
+
+app.use(express.static(__dirname + '/app/'));
+
+app.listen(port, function() {
+console.log('I am listening on port 3000!');
+});
+</code></pre>
+<p>
+	
+<br>
+Basically this tells Heroku we'll be using an Express framework for node.js to
+run our application. The port option is so you can open a local copy of the app
+in your browser if you so choose, good for working on styling options, etc. Although you'd probably be better off installing <bold>live-server</bold> golbally with <bold>npm</bold> as it will do live reloads of the page as you edit and save files.
+</p>
+<p>
+	
+An important note about line 5 of our index.js, the app.use line. The portion containing /app/ will be the directory that your application's index.html lives. This needs to be edited accordingly. For example, if your index.hmtl is in the root directory of your repo a single / would suffice. If it's located in a directory named <bold>dist</bold> then /app/ would need to be changed to /dist/
+</p>
+<p>
+	
+Now we'll add some bits into the .gitignore file. This will prevent the files we are about to install from being pushed to Github and Heroku in the near future:
+</p>
+<pre><code>
+.DS_Store
+node_modules
+</code></pre>
+<p>
+
+<br>	
+Now lets add a single line to the Procfile, this is basically a script that tells node to execute our index.js file:
+</p>
+<pre><code>web: node index.js</code></pre>
+<p>
+
+<br>	
+Once again an important note. This single line expects index.js to be located in the root directory of your project, in my case <bold>my-example-app</bold>. If you move the index.js file to a subdirectory this line will need to be edited to reflect that change. For example if you moved it to your <bold>app</bold> directory, this line would need to read </bold>web: node app/index.js</bold>
+</p>
+<p>
+	
+NPM time! If you dont have npm installed there are plenty of helpful articles online explaining the install process. NPM is a package manager for JavaScript and makes installing things we regularly need a painless process. It is required here: <a href="https://www.npmjs.com/">NPM</a>.
+</p>
+<p>
+	
+Now lets install some stuff! In terminal, once again in the root directory of your app repo, type the following:
+</p>
+<code>npm init</code>
+<p>
+
+<br>
+Once started you will be asked to reply to some questions, you may skip them by hitting enter or answer them so your package.json that NPM creates has relevant information in it.
+Now that NPM is initialized, lets install express. Type the following in terminal:
+</p>
+<code>npm install express --save</code>
+<p>
+
+<br>	
+Time to once again hit the Heroku website. Under Personal Apps tab, click the <bold>New</bold> button. You'll be required to specify a name and choose a region. Names for Heroku apps are first come - first serve, so if prompted that the name is taken simply pick something else! This name will soon be part of the url used to access our deployed application!
+</p>
+<p>
+	
+After creating the app, if not already, navigate to your newly created app in Personal Apps tab. Open the <bold>Deploy</bold> tab and scroll to the bottom and copy the line below "Existing Git Repo". Note that there is a $ in this line, don't copy that or it wont work, that's just letting you know to copy/paste this line into terminal.
+</p>
+<p>
+	
+We're so close now! Just run your normal git commands to add, commit and push your added-to repo:
+</p>
+<code>git add .<br></code>
+<code>git commit -m "your commit message goes here"<br></code>
+<code>git push origin master</code>
+<p>
+
+<br>	
+Now for the Heroku portion. Pushing to Heroku works almost exactly like pushing to Github, and is therefor extremely easy!
+</p>
+<code>git push heroku master</code>
+<p>
+
+<br>	
+That's it! You can watch as your application gets built and deployed in the terminal, and sans any build errors you are now on your way to a web app! If there are build errors, be sure to check the Logs section of your application on the Heroku site and note any build errors that may be present in Terminal for googling solutions.
+</p></span>
+</div>
+
+<!--<div class="box">-->
+    <!-- google ads code box -->
+<!--</div>-->
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_developer = 1;
+    var disqus_shortname = 'joncgrubb'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+      </div>
+
+      <div class="tile is-4 is-child">
+        <div class="tile is-parent is-vertical sidebar">
+
+          <div class="tile is-child widget">
+
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title nice-title">
+                  Jonathan Grubb
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content nice-text">
+                  <img id="profile-pic" src="/assets/images/jon.jpg"/>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tile is-child widget">
+
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title nice-title">
+                  Recent Posts
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content nice-text">
+                  <ul>
+                  
+                  <li><a href="/2017/09/Using-Heroku-to-Host-Your-Apps.html">
+                    Using Heroku to Host Your Apps
+                  </a></li>
+                  
+                  <li><a href="/2017/09/First-Week-Complete!.html">
+                    First Week Complete!
+                  </a></li>
+                  
+                  <li><a href="/2017/09/The-Start-Of-Bootcamp.html">
+                    The Start of Bootcamp
+                  </a></li>
+                  
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tile is-child widget">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title nice-title">
+                  Recommended Websites
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="content nice-text">
+                  <ul>
+                    <li>
+                      <a href="https://xkcd.com">xkcd</a>
+                    </li>
+                    <li>
+                      <a href="https://www.hackerrank.com" target="_blank">HackerRank</a>
+                    </li>
+                    <li>
+                      <a href="https://www.codecademy.com/" target="_blank">Code Academy</a>
+                    </li>
+                    <li>
+                      <a href="https://www.awesomeincu.com/" target="_blank">Awesome Inc University</a>
+                    </li>
+                    <li>
+                      <a href="https://importalliance.org/" target="_blank">Import Alliance</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        &copy; 2017 Jonathan Grubb.
+      </p>
+      <p>
+        <a class="icon" href="https://github.com/joncgrubb">
+          <i class="fa fa-github" title="Github"></i>
+        </a>
+        <a class="icon" href="https://www.linkedin.com/in/joncgrubb">
+          <i class="fa fa-linkedin" title="Linkedin"></i>
+        </a>
+        <a class="icon" href="mailto:joncgrubb@gmail.com">
+          <i class="fa fa-envelope" title="Email"></i>
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- js -->
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/typewriter.js"></script>
+</body>
+</html>
