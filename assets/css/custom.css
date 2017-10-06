@@ -12,6 +12,8 @@
     font-style: normal;
 }
 
+/* Header/Footer Color: #363636; */
+
 code {
     background-color: #4c4c4c;
     color: white;
@@ -83,6 +85,11 @@ h1.title > span {
 
 .footer {
     padding: 3rem 1.5rem 3rem;
+    background-color: #363636;
+}
+
+.footer p {
+    color: #f9f9f9;
 }
 
 .post-title {
@@ -116,6 +123,7 @@ h1.title > span {
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    background-color: #f9f9f9;
 }
 
 a {
