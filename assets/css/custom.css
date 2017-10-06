@@ -121,3 +121,10 @@ html, body {
 a {
     color: #57A3E8;
 }
+
+.img-thumbnail {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+    box-shadow: 2px 2px 5px #dbdbdb;
+}
