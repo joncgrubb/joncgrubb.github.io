@@ -27,7 +27,8 @@ After creating the app, navigate to the Resources tab within the application and
 </p>
 <code>postgres</code>
 <p>
-	
+
+<br>	
 Select Heroku Postgres from the dropdown and a popup window will appear asking what plan you would like to use. We will be covering the Hobby Dev - Free version only. Click the Provision button to add this feature. If you would like to upgrade to a paid plan, doing some research on the Heroku website would be strongly advised.
 </p>
 <p>
@@ -47,6 +48,7 @@ var_dump($url);
 </code></pre>
 <p>
 
+<br>
 Save your file and reload your page in your browser, you'll now see and array being displayed near the top of your page displayed some easy-to-read information about your remote database URL. Open PSequel and open a new window. Click "Add Connection" in the bottom left of the screen. Name this something appropriate appended by "for Heroku" so you can remember this is your remote database and not your local one. We'll now need to fill in the URL information we dumped to our browser. Simply copy/paste from and into the appropriate fields in PSequel. Note that you will need to remove the "/" from the "Database:" portion. Now put a check in the Use SSL tickbox, you will not need to fill any of this information out.
 </p>
 <p>
@@ -64,6 +66,7 @@ Now, in terminal within your project working directory, type the following:
 <code>composer require vlucas/phpdotenv</code>
 <p>
 
+<br>
 A few more commands to enter in terminal while we are here:
 </p>
 <code>touch .gitignore</code>
@@ -71,6 +74,7 @@ A few more commands to enter in terminal while we are here:
 <code>touch .env.sample</code>
 <p>
 
+<br>
 Open .gitignore in your text editor of choice and add the following lines:
 </p>
 <pre><code>
@@ -79,6 +83,7 @@ Open .gitignore in your text editor of choice and add the following lines:
 </code></pre>
 <p>
 
+<br>
 Open .env.sample in your text editor of choice and add the following line:
 </p>
 <pre><code>
@@ -86,6 +91,7 @@ DATABASE_URL=postgres://user:password@host:port/database
 </code></pre>
 <p>
 
+<br>
 Copy this line into your .env file and then change the user, password, host, port, and database sections to match your local database URL.
 </p>
 <p>
@@ -105,6 +111,7 @@ if (file_exists('.env')) {
 </code></pre>
 <p>
 
+<br>
 Now we will need to remove the $raw_url variable line and change our $url variable line to read as follows:
 </p>
 <pre><code>
@@ -112,11 +119,13 @@ $url = parse_url(getenv("DATABASE_URL"));
 </code></pre>
 <p>
 
+<br>
 Now we just need to add a Procfile to our working directory so Heroku knows how to build our app. In your project working directory in terminal type:
 </p>
 <code>touch Procfile</code>
 <p>
 
+<br>
 Open Procfile in your text editor and add the following line:
 </p>
 <pre><code>
@@ -124,6 +133,7 @@ web: vendor/bin/heroku-php-nginx
 </code></pre>
 <p>
 
+<br>
 Now add, commit, and push to your Github repo. In your browser, navigate to your newly created app in Personal Apps tab. Open the <b>Deploy</b> tab and scroll to the bottom and copy the line below "Existing Git Repo", paste into terminal, and execute. Note that there is a $ in this line, don't copy that or it wont work, that's just letting you know to copy/paste this line into terminal.
 </p>
 <p>
