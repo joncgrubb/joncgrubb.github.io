@@ -25,7 +25,8 @@ We will take care of global installation of Yarn so you won't have any trouble w
 </p>
 <code>brew install yarn</code>
 <p>
-	
+
+<br>	
 Whether you have an existing Laravel project or need to create a new one, these steps will not change (other than installing the prerequisite applications that we're covering now). Assuming you have an existing project and you haven't done so already, navigate to your project root directory in terminal and enter:
 </p>
 <code>npm install</code>
@@ -36,14 +37,15 @@ This will install the dependencies that Laravel needs to serve your page with Br
 </p>
 <p>
 	
-Now, with your favorite text editor, open the webpack.mix.js file located in your Laravel project root directory. We will need to edit one of this lines to include browsersync in a way that will work for us. Below is what the lines we need to modify should look like (at least for version 5.5 of Laravel) after a fresh new project has been started:
+Now, with your favorite text editor, open the <b>webpack.mix.js</b> file located in your Laravel project root directory. We will need to edit one of these lines to include browsersync in a way that will work for us. Below is what the lines we need to modify should look like (at least for version 5.5 of Laravel) after a fresh new project has been started:
 </p>
 <pre><code>
 mix.js('resources/assets/js/app.js', 'public/js')
  .sass('resources/assets/sass/app.scss', 'public/css');
  </code></pre>
 <p>
-	
+
+<br>	
 Edit it to now look like this:
 </p>
 <pre><code>
@@ -54,7 +56,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
 <p>
 
 <br>
-You will notice that the URL in the line we added is the exact URL (and port) that <code>php artisan serve</code> utilizes for working on our application locally by default. We won't need to use that URL anymore in our browser for working locally!
+You will notice that the URL in the line we added is the exact URL (and port) that <b>php artisan serve</b> utilizes for working on our application locally by default. We won't need to use that URL anymore in our browser for working locally!
 </p>
 <p>
 
